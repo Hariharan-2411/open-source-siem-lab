@@ -37,3 +37,25 @@ Session 1 — VM preparation, hardening, snapshot discipline
 
 ### Resume Point
 Session 2 — Wazuh installation
+
+
+## Session 2 — Wazuh Installation
+**Date:** 2026-05-19
+**Status:** Complete
+
+### Completed
+- Wazuh Indexer 4.14.5 installed and running
+- TLS certificates generated for all components
+- Wazuh Manager 4.14.5 installed and running
+- Filebeat configured and shipping alerts
+- Wazuh Dashboard accessible at https://54.82.59.160
+- 348 alerts already detected on first run
+
+### Services Running
+- wazuh-indexer: active
+- wazuh-manager: active
+- wazuh-dashboard: active
+- filebeat: active
+
+### Resume Point
+Session 3 — Log sources and Wazuh agent
