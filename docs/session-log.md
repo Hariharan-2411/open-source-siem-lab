@@ -59,3 +59,51 @@ Session 2 — Wazuh installation
 
 ### Resume Point
 Session 3 — Log sources and Wazuh agent
+
+# Session 3: Log Sources & Wazuh Manager
+
+## What Was Accomplished
+- Diagnosed and fixed Wazuh Manager broken installation
+  (missing binaries due to manager/agent package conflict)
+- Added 4GB swap file to prevent OOM kills of wazuh-indexer
+- Extended systemd timeout for wazuh-indexer to 180s
+- Created systemd service unit for wazuh-manager (Type=oneshot)
+- Configured auth block in ossec.conf to enable port 1515
+- Registered agent ID 001 (siem-lab-ubuntu) via manage_agents
+- Verified all critical manager daemons running:
+  analysisd, remoted, authd, db, execd, logcollector, monitord
+- Verified ports 1514 and 1515 open and listening
+- Dashboard confirmed active: 675+ alerts from self-monitoring
+
+## Architecture Learned
+- wazuh-manager and wazuh-agent are mutually exclusive packages
+- Single-VM: manager self-monitors via ID 000 natively
+- Agent registration uses port 1515 (authd) for key exchange
+- Agent communication uses port 1514 (remoted) for log shipping
+- client.keys stores cryptographic identity for each agent
+
+## Key Files Modified
+- /var/ossec/etc/ossec.conf — added <auth> block
+- /etc/systemd/system/wazuh-manager.service — created unit file
+- /etc/systemd/system/wazuh-indexer.service.d/override.conf — timeout
+- /var/ossec/etc/client.keys — agent 001 registered
+- /swapfile — 4GB swap added permanently
+
+## Troubleshooting Learned
+- Stale PID files cause "already running" false positives
+  Fix: sudo rm -f /var/ossec/var/run/*.pid
+- wazuh-indexer dies with status=143 = systemd timeout
+  Fix: TimeoutStartSec=180 in override.conf
+- manager/agent package conflict is by design, not a bug
+  Fix: use manage_agents for manual registration
+
+## MITRE ATT&CK Relevance
+- T1078 Valid Accounts: auth.log captures login events
+- T1110 Brute Force: failed SSH attempts trigger alerts
+- T1136 Create Account: useradd/adduser logged and alerted
+
+## Next Session
+Session 4: Log parsing and normalization deep dive
+- How Wazuh decoders extract fields from raw log lines
+- Writing custom decoders for application logs
+- Understanding alert rule levels and groups
