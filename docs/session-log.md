@@ -107,3 +107,69 @@ Session 4: Log parsing and normalization deep dive
 - How Wazuh decoders extract fields from raw log lines
 - Writing custom decoders for application logs
 - Understanding alert rule levels and groups
+
+
+# Session 4: Log Parsing, Decoders & Detection Engineering
+
+## Status: COMPLETE
+
+## What Was Accomplished
+- Traced a real alert end-to-end: raw log → decoder → rule → alert → OpenSearch → Dashboard
+- Read Wazuh sudo decoder chain (0320-sudo_decoders.xml) line by line
+- Read rule 5402/5403 including MITRE ATT&CK mapping
+- Used wazuh-logtest to test rules interactively
+- Wrote custom detection rule 100001 from scratch
+- Debugged rule chaining: if_sid vs if_group vs field matching
+- Confirmed rule fired on live system via alerts.log
+- Queried OpenSearch directly to see alert JSON document
+- Verified 1171 alerts stored in OpenSearch filing room
+
+## The Full Pipeline
+sudo cat /etc/passwd (typed by user)
+        ↓
+/var/log/auth.log (Linux wrote it)
+        ↓
+wazuh-logcollector (picked it up, shipped to analysisd)
+        ↓
+Decoder (broke raw text into named fields)
+        ↓
+Rule engine (matched rule 100001 on command field)
+        ↓
+alerts.log (alert written)
+        ↓
+Filebeat (picked up, packaged as JSON, shipped to OpenSearch)
+        ↓
+OpenSearch (indexed into wazuh-alerts-4.x-2026.05.22)
+        ↓
+Dashboard (read from OpenSearch, displayed to analyst)
+
+## Key Concepts
+- Decoder parent: identifies log source via program_name
+- Decoder child: extracts fields via regex capture groups
+- Rule if_sid: chain on specific rule ID
+- Rule if_group: chain on any rule in a group (more flexible)
+- Rule field name="x": match decoded field (always prefer over regex)
+- Custom rules start at ID 100000
+- OpenSearch index per day: wazuh-alerts-4.x-YYYY.MM.DD
+- Alert JSON contains: predecoder, agent, data, rule sections
+
+## Custom Rule Written
+Rule 100001 - level 10
+Detects: sudo cat of /etc/passwd or /etc/shadow
+MITRE: T1087 Account Discovery, T1003 OS Credential Dumping
+File: wazuh/rules/local_rules.xml
+
+## Debugging Lessons
+1. if_sid fails when a different child rule wins first
+2. regex on raw log unreliable after rule chaining
+3. field name="command" reliable — always matches decoded value
+4. wazuh-logtest is your best friend for testing before deploying
+
+## IR Analyst Relevance (Vosyn)
+T1087 + T1548.003 together = privilege escalation then discovery
+This pattern = active post-exploitation. Escalate immediately.
+Real investigation checklist:
+- Is this user supposed to have sudo? 
+- First time using it? (FTS = higher suspicion)
+- What exact command? (/etc/shadow = critical)
+- What time? After hours = escalate

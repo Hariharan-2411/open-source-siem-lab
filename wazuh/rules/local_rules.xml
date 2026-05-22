@@ -1,0 +1,14 @@
+<group name="custom,discovery,">
+
+  <rule id="100001" level="10">
+    <if_group>sudo</if_group>
+    <field name="command">/etc/passwd|/etc/shadow</field>
+    <description>Possible credential discovery: cat of sensitive file via sudo.</description>
+    <mitre>
+      <id>T1087</id>
+      <id>T1003</id>
+    </mitre>
+    <group>credential_access,discovery,</group>
+  </rule>
+
+</group>
