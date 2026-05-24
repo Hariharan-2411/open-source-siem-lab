@@ -1,4 +1,4 @@
-where# Session Log
+# Session Log
 
 ## Session 0 — Architecture & Planning
 **Date:** 2026-05-15
@@ -173,3 +173,26 @@ Real investigation checklist:
 - First time using it? (FTS = higher suspicion)
 - What exact command? (/etc/shadow = critical)
 - What time? After hours = escalate
+
+## Session 5 — Detection Engineering I
+**Date:** 2026-05-23
+**Status:** Complete
+
+### Completed
+- Built 4 custom detection rules in local_rules.xml
+- Rule 100001: credential discovery via sudo cat (T1087, T1003)
+- Rule 100002: SSH brute force correlation (T1110.001)
+- Rule 100003: sudo abuse / suspicious commands (T1548.003, T1059)
+- Rule 100004: log tampering via sudo rm (T1070.002)
+- Tested all rules with wazuh-logtest
+- Verified rules 100001 and 100003 fire on live system
+- Built detection coverage map
+
+### Key Concepts
+- frequency + timeframe = correlation rules (count events over time)
+- if_matched_sid required for frequency rules (not if_sid)
+- Level 12+ triggers mail notification
+- Attack chain: brute force → escalation → discovery → tampering
+
+### Next Session
+Session 6 — Sigma rules

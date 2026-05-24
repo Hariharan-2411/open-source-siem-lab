@@ -1,14 +1,49 @@
-<group name="custom,discovery,">
+<group name="custom,">
 
+  <!-- Rule 100001: Credential Discovery — T1087, T1003 -->
   <rule id="100001" level="10">
     <if_group>sudo</if_group>
     <field name="command">/etc/passwd|/etc/shadow</field>
-    <description>Possible credential discovery: cat of sensitive file via sudo.</description>
+    <description>Credential discovery: cat of sensitive file via sudo.</description>
     <mitre>
       <id>T1087</id>
       <id>T1003</id>
     </mitre>
     <group>credential_access,discovery,</group>
+  </rule>
+
+  <!-- Rule 100002: SSH Brute Force — T1110.001 -->
+  <rule id="100002" level="12" frequency="8" timeframe="120">
+    <if_matched_sid>5716</if_matched_sid>
+    <same_source_ip />
+    <description>SSH brute force: 8+ failed logins from same IP within 2 minutes.</description>
+    <mitre>
+      <id>T1110.001</id>
+    </mitre>
+    <group>authentication_failure,brute_force,</group>
+  </rule>
+
+  <!-- Rule 100003: Sudo Abuse — T1548.003, T1059 -->
+  <rule id="100003" level="12">
+    <if_group>sudo</if_group>
+    <field name="command">useradd|usermod|passwd|chpasswd|visudo|python|perl|bash -i|sh -i</field>
+    <description>Sudo abuse: suspicious command executed as root.</description>
+    <mitre>
+      <id>T1548.003</id>
+      <id>T1059</id>
+    </mitre>
+    <group>privilege_escalation,execution,</group>
+  </rule>
+
+  <!-- Rule 100004: Log Tampering via sudo — T1070.002 -->
+  <rule id="100004" level="14">
+    <if_group>sudo</if_group>
+    <field name="command">rm /var/log|shred /var/log|truncate /var/log</field>
+    <description>Log tampering via sudo: attempt to remove system logs as root.</description>
+    <mitre>
+      <id>T1070.002</id>
+    </mitre>
+    <group>defense_evasion,</group>
   </rule>
 
 </group>
