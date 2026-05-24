@@ -1,0 +1,30 @@
+title: Log Tampering via Sudo
+id: d4e5f6a7-b8c9-0123-defa-234567890123
+status: experimental
+description: >
+    Detects attempts to delete or clear system log files
+    using sudo. This is a common attacker technique to
+    cover tracks after a compromise.
+author: Hari
+date: 2026/05/23
+references:
+    - https://attack.mitre.org/techniques/T1070/002/
+tags:
+    - attack.defense_evasion
+    - attack.t1070.002
+logsource:
+    product: linux
+    service: sudo
+detection:
+    selection:
+        program: sudo
+        data.dstuser: root
+        data.command|contains:
+            - 'rm /var/log'
+            - 'shred /var/log'
+            - 'truncate /var/log'
+    condition: selection
+falsepositives:
+    - Legitimate log rotation scripts
+    - System administrators performing log cleanup
+level: critical

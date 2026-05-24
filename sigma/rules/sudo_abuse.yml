@@ -1,0 +1,39 @@
+title: Sudo Abuse - Suspicious Command Execution as Root
+id: c3d4e5f6-a7b8-9012-cdef-123456789012
+status: experimental
+description: >
+    Detects execution of suspicious commands via sudo that
+    are commonly used by attackers for persistence, lateral
+    movement, or establishing reverse shells.
+author: Hari
+date: 2026/05/23
+references:
+    - https://attack.mitre.org/techniques/T1548/003/
+    - https://attack.mitre.org/techniques/T1059/
+tags:
+    - attack.privilege_escalation
+    - attack.t1548.003
+    - attack.execution
+    - attack.t1059
+logsource:
+    product: linux
+    service: sudo
+detection:
+    selection:
+        program: sudo
+        data.dstuser: root
+        data.command|contains:
+            - 'useradd'
+            - 'usermod'
+            - 'passwd'
+            - 'chpasswd'
+            - 'visudo'
+            - 'python'
+            - 'perl'
+            - 'bash -i'
+            - 'sh -i'
+    condition: selection
+falsepositives:
+    - System administrators performing legitimate user management
+    - DevOps automation scripts
+level: high
