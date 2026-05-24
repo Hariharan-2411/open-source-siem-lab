@@ -165,7 +165,7 @@ File: wazuh/rules/local_rules.xml
 3. field name="command" reliable — always matches decoded value
 4. wazuh-logtest is your best friend for testing before deploying
 
-## IR Analyst Relevance (Vosyn)
+## IR Analyst Relevance
 T1087 + T1548.003 together = privilege escalation then discovery
 This pattern = active post-exploitation. Escalate immediately.
 Real investigation checklist:

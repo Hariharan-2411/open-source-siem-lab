@@ -39,7 +39,7 @@ See [docs/architecture.md](docs/architecture.md) for the full pipeline diagram.
 | 3 | Log Sources & Agent | ✅ Complete |
 | 4 | Parsing & Detection Engineering | ✅ Complete |
 | 5 | Detection Engineering I — Rules + MITRE | ✅ Complete |
-| 6 | Sigma Rules | ⬜ Pending |
+| 6 | Sigma Rules | ✅ Complete |
 | 7 | Entra ID Log Simulation | ⬜ Pending |
 | 8 | Alerting & Dashboard Engineering | ⬜ Pending |
 | 9 | MISP Threat Intelligence | ⬜ Pending |
