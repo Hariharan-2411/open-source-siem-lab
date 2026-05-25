@@ -225,3 +225,26 @@ Session 6 — Sigma rules
 
 ### Next Session
 Session 8 — Alerting and Dashboard Engineering
+
+## Session 6 — Sigma Rules
+**Date:** 2026-05-23
+**Status:** Complete
+
+### Completed
+- Installed sigma-cli 3.0.2
+- Added PATH for sigma binary (~/.local/bin)
+- Wrote 4 Sigma rules matching all existing Wazuh detections
+- credential_discovery_sudo.yml: T1087, T1003
+- ssh_brute_force.yml: T1110.001 with count correlation
+- sudo_abuse.yml: T1548.003, T1059
+- log_tampering.yml: T1070.002
+- Documented Sigma → Wazuh XML conversion mapping
+
+### Key Concepts
+- Sigma = vendor-neutral YAML detection format
+- Wazuh XML = platform-specific deployed version
+- Both live in GitHub: Sigma for portability, XML for execution
+- Wazuh backend plugin not available in sigma-cli 3.x
+
+### Next Session
+Session 7 — Entra ID Log Simulation

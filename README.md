@@ -1,4 +1,3 @@
-
 # Open-Source SIEM Lab
 
 A fully functional, end-to-end SIEM pipeline built on a single AWS EC2 instance.
@@ -9,7 +8,6 @@ A fully functional, end-to-end SIEM pipeline built on a single AWS EC2 instance.
 - Wazuh 4.14.5
 
 ## Architecture
-
 Log Sources → Wazuh Agent → Wazuh Manager → OpenSearch → Dashboard
 ↓
 MISP (Threat Intel)
@@ -57,7 +55,6 @@ See [docs/architecture.md](docs/architecture.md) for the full pipeline diagram.
 | T1003 | Credential Dumping | 100001 | ✅ |
 | T1070.002 | Log Tampering | 100004 | ✅ |
 | T1059 | Command Interpreter | 100003 | ✅ |
-
 | T1621 | MFA Fatigue | 100010 | ✅ |
 | T1078 | Valid Accounts | 100011 | ✅ |
 | T1110 | Credential Stuffing | 100012 | ✅ |
