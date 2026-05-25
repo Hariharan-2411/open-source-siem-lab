@@ -1,0 +1,12 @@
+<!-- Entra ID Sign-in Log Decoder -->
+<decoder name="entra-id">
+  <prematch>{"time":</prematch>
+</decoder>
+
+<decoder name="entra-id-fields">
+  <parent>entra-id</parent>
+  <use_own_name>true</use_own_name>
+  <json_null_field>discard</json_null_field>
+  <regex>{"time":"\.+","operationName":"\.+","resultType":"(\.+)","resultDescription":"(\.+)","userPrincipalName":"(\.+)","ipAddress":"(\.+)"</regex>
+  <order>status,result,user,srcip</order>
+</decoder>

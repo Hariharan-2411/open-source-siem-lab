@@ -1,0 +1,25 @@
+title: Entra ID MFA Fatigue Attack
+id: e5f6a7b8-c9d0-1234-efab-567890123456
+status: experimental
+description: >
+    Detects repeated MFA push notification denials from the same
+    user indicating a MFA fatigue attack. Attacker spams push
+    notifications hoping user accidentally approves.
+    Used in the Uber breach (2022).
+author: Hari
+date: 2026/05/24
+references:
+    - https://attack.mitre.org/techniques/T1621/
+tags:
+    - attack.credential_access
+    - attack.t1621
+logsource:
+    product: azure
+    service: signinlogs
+detection:
+    selection:
+        mfaDetail.authDetail|contains: 'MFA denied'
+    condition: selection
+falsepositives:
+    - Legitimate user accidentally denying MFA once or twice
+level: high

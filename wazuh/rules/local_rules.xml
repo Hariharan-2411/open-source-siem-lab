@@ -35,7 +35,7 @@
     <group>privilege_escalation,execution,</group>
   </rule>
 
-  <!-- Rule 100004: Log Tampering via sudo — T1070.002 -->
+  <!-- Rule 100004: Log Tampering — T1070.002 -->
   <rule id="100004" level="14">
     <if_group>sudo</if_group>
     <field name="command">rm /var/log|shred /var/log|truncate /var/log</field>
@@ -44,6 +44,43 @@
       <id>T1070.002</id>
     </mitre>
     <group>defense_evasion,</group>
+  </rule>
+
+  <!-- Rule 100010: MFA Fatigue — T1621 -->
+  <rule id="100010" level="14">
+    <decoded_as>json</decoded_as>
+    <field name="mfaDetail.authDetail">MFA denied</field>
+    <description>Entra ID MFA Fatigue: user repeatedly denying MFA push notifications.</description>
+    <mitre>
+      <id>T1621</id>
+    </mitre>
+    <group>identity,mfa_fatigue,defense_evasion,</group>
+  </rule>
+
+  <!-- Rule 100011: High Risk Sign-in — T1078 -->
+  <rule id="100011" level="12">
+    <decoded_as>json</decoded_as>
+    <field name="riskLevelDuringSignIn">high</field>
+    <field name="resultDescription">Success</field>
+    <description>Entra ID High Risk Successful Sign-in: Microsoft flagged this login as high risk.</description>
+    <mitre>
+      <id>T1078</id>
+    </mitre>
+    <group>identity,credential_access,</group>
+  </rule>
+
+  <!-- Rule 100012: Credential Stuffing Success — T1110, T1078 -->
+  <rule id="100012" level="13">
+    <decoded_as>json</decoded_as>
+    <field name="resultDescription">Success</field>
+    <field name="riskLevelDuringSignIn">high</field>
+    <field name="mfaDetail.authDetail">MFA bypassed</field>
+    <description>Entra ID Credential Stuffing Success: successful login with MFA bypassed and high risk score.</description>
+    <mitre>
+      <id>T1110</id>
+      <id>T1078</id>
+    </mitre>
+    <group>identity,credential_access,brute_force,</group>
   </rule>
 
 </group>

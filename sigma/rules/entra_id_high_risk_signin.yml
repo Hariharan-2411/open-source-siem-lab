@@ -1,0 +1,26 @@
+title: Entra ID High Risk Successful Sign-in
+id: f6a7b8c9-d0e1-2345-fabc-678901234567
+status: experimental
+description: >
+    Detects successful sign-ins that Microsoft Entra ID has
+    flagged as high risk. This indicates potential account
+    compromise, impossible travel, or anonymous IP usage.
+author: Hari
+date: 2026/05/24
+references:
+    - https://attack.mitre.org/techniques/T1078/
+tags:
+    - attack.initial_access
+    - attack.t1078
+    - attack.persistence
+logsource:
+    product: azure
+    service: signinlogs
+detection:
+    selection:
+        resultDescription: 'Success'
+        riskLevelDuringSignIn: 'high'
+    condition: selection
+falsepositives:
+    - VPN usage triggering false risk score
+level: high

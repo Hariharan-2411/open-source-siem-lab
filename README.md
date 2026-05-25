@@ -40,7 +40,7 @@ See [docs/architecture.md](docs/architecture.md) for the full pipeline diagram.
 | 4 | Parsing & Detection Engineering | ✅ Complete |
 | 5 | Detection Engineering I — Rules + MITRE | ✅ Complete |
 | 6 | Sigma Rules | ✅ Complete |
-| 7 | Entra ID Log Simulation | ⬜ Pending |
+| 7 | Entra ID Log Simulation | ✅ Complete |
 | 8 | Alerting & Dashboard Engineering | ⬜ Pending |
 | 9 | MISP Threat Intelligence | ⬜ Pending |
 | 10 | Shuffle SOAR | ⬜ Pending |
@@ -57,6 +57,10 @@ See [docs/architecture.md](docs/architecture.md) for the full pipeline diagram.
 | T1003 | Credential Dumping | 100001 | ✅ |
 | T1070.002 | Log Tampering | 100004 | ✅ |
 | T1059 | Command Interpreter | 100003 | ✅ |
+
+| T1621 | MFA Fatigue | 100010 | ✅ |
+| T1078 | Valid Accounts | 100011 | ✅ |
+| T1110 | Credential Stuffing | 100012 | ✅ |
 
 ## Detection Coverage Map
 See [docs/detections/detection-coverage-map.md](docs/detections/detection-coverage-map.md)

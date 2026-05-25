@@ -196,3 +196,32 @@ Real investigation checklist:
 
 ### Next Session
 Session 6 — Sigma rules
+
+## Session 7 — Entra ID Identity Log Simulation
+**Date:** 2026-05-24
+**Status:** Complete
+
+### Completed
+- Built Python log generator simulating 3 Entra ID attack scenarios
+- Configured Wazuh to ingest JSON logs (new log source in ossec.conf)
+- Created entra_id_decoder.xml for JSON field extraction
+- Built 3 identity attack detection rules (100010-100012)
+- Rule 100010: MFA Fatigue — T1621 (level 14)
+- Rule 100011: High Risk Sign-in — T1078 (level 12)
+- Rule 100012: Credential Stuffing Success — T1110/T1078 (level 13)
+- Verified all 3 rules fired on live generated logs
+- Created 3 Sigma rules for identity detections
+
+### Attack Scenarios Simulated
+- MFA Fatigue: sarah.jones — 6 MFA denials from Moscow (T1621)
+- High Risk Sign-in: john.smith — Toronto then Lagos 3min apart (T1078)
+- Credential Stuffing: admin — 5 failures then success from Beijing (T1110)
+
+### Key Concepts
+- Every new log source needs: ossec.conf entry + decoder + rules
+- JSON logs decoded natively by Wazuh's built-in JSON decoder
+- Rule priority: higher level wins when multiple rules match same log
+- MFA fatigue = Uber breach 2022 technique — now detected in this lab
+
+### Next Session
+Session 8 — Alerting and Dashboard Engineering

@@ -32,3 +32,11 @@ These rules can be converted to any SIEM platform.
 - sigma-cli 3.0.2 installed at /home/ubuntu/.local/bin/sigma
 - Wazuh backend plugin not available for sigma-cli 3.x
 - Conversion done manually using field mapping table above
+
+## Entra ID Rules (Session 7)
+
+| File | Detects | MITRE | Wazuh Rule ID |
+|---|---|---|---|
+| entra_id_mfa_fatigue.yml | Repeated MFA denial push notifications | T1621 | 100010 |
+| entra_id_high_risk_signin.yml | Successful high-risk sign-in | T1078 | 100011 |
+| entra_id_credential_stuffing.yml | Success + MFA bypassed + high risk | T1110, T1078 | 100012 |
