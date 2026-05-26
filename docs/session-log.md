@@ -248,3 +248,37 @@ Session 8 — Alerting and Dashboard Engineering
 
 ### Next Session
 Session 7 — Entra ID Log Simulation
+
+## Session 8 — Alerting & Dashboard Engineering
+**Date:** 2026-05-26
+**Status:** Complete
+
+### Completed
+- Explored Wazuh Dashboard: Threat Hunting, MITRE ATT&CK, Framework views
+- Generated fresh alerts from all 5 custom rule categories
+- Read full alert document for rule 100012 (credential stuffing)
+- Analyzed MITRE ATT&CK Framework — 8 techniques across 7 tactics confirmed
+- Pushed 4 portfolio screenshots to GitHub
+- Ran alert volume analysis — identified tuning candidates
+- Fixed git email on Mac for contribution tracking
+
+### Key Dashboard Views
+- Threat Hunting Dashboard: total alerts, severity breakdown, MITRE donut
+- Events table: raw alert stream with rule.id, rule.level, rule.description
+- Document Details: full JSON alert with all decoded fields visible
+- MITRE Framework filtered: only active techniques shown
+
+### Alert Tuning Lesson
+- Custom rules 100001-100012: zero false positives
+- Built-in rules 5501/5502 (PAM sessions): high volume, low value → tune candidates
+- Rule 19011 (service status): highest volume → investigate for suppression
+- Real-world rule: 50+ fires/day with no analyst action = suppress or reduce level
+
+### MITRE Coverage Confirmed
+7 tactics active: Privilege Escalation, Defense Evasion, Credential Access,
+Persistence, Initial Access, Execution, Discovery
+8 techniques: T1078, T1621, T1548.003, T1110, T1059, T1087, T1003, T1070.002
+
+### Next Session
+Session 9 — MISP Threat Intelligence
+
