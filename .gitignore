@@ -8,3 +8,4 @@ wazuh-certificates/
 config.yml
 wazuh-certs-tool.sh
 wazuh-certificates-tool.log
+*.cdb

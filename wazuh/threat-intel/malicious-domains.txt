@@ -1,0 +1,7 @@
+# Wazuh CDB list - malicious domains
+# Format: domain:source_feed
+# Seed entries for testing
+update.windowsupdate-microsoft.com:phishing-feed
+secure-login.paypa1-verify.com:phishing-feed
+cdn.emotet-dropper.net:malware-feed
+185.220.101.1.malicious-domain.ru:abuse-ch

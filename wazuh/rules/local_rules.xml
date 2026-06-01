@@ -83,4 +83,37 @@
     <group>identity,credential_access,brute_force,</group>
   </rule>
 
+
+<!-- ============================================================ -->
+  <!-- THREAT INTELLIGENCE RULES — Session 9                         -->
+  <!-- CDB list lookups against IOC feeds                            -->
+  <!-- ============================================================ -->
+
+  <!-- Rule 100020: Known malicious IP match                         -->
+  <!-- MITRE: T1071 (C2), T1078 (Valid Accounts from bad IP)        -->
+  <rule id="100020" level="14">
+    <if_sid>86600</if_sid>
+    <list field="srcip" lookup="match_key">etc/lists/malicious-ips</list>
+    <description>IOC match: source IP $(srcip) found in malicious-ips threat feed</description>
+    <group>threat_intel,ioc_match,T1071,T1078,</group>
+  </rule>
+
+  <!-- Rule 100021: Known malicious domain match                     -->
+  <!-- MITRE: T1566 (Phishing), T1071 (C2)                         -->
+  <rule id="100021" level="13">
+    <decoded_as>json</decoded_as>
+    <list field="domain" lookup="match_key">etc/lists/malicious-domains</list>
+    <description>IOC match: domain $(domain) found in malicious-domains threat feed</description>
+    <group>threat_intel,ioc_match,T1566,T1071,</group>
+  </rule>
+
+  <!-- Rule 100022: Known malicious file hash match                  -->
+  <!-- MITRE: T1204 (User Execution of malicious file)              -->
+  <rule id="100022" level="15">
+    <decoded_as>json</decoded_as>
+    <list field="md5" lookup="match_key">etc/lists/malicious-hashes</list>
+    <description>IOC match: file hash $(md5) matches known malware in threat feed</description>
+    <group>threat_intel,ioc_match,T1204,</group>
+  </rule>
+
 </group>

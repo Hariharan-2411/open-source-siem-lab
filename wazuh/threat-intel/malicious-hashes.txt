@@ -1,0 +1,6 @@
+# Wazuh CDB list - malicious file hashes (MD5)
+# Format: hash:malware_family
+# Seed entries from public malware databases
+44d88612fea8a8f36de82e1278abb02f:eicar-test
+e1105070ba828007508566e28a2b8d4c:mirai-botnet
+b6052abe83931b4b0d67d842ef9f0bb7:emotet-dropper
