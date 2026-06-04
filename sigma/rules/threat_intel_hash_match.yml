@@ -1,0 +1,24 @@
+title: IOC Match - Known Malicious File Hash
+id: ti-003
+status: stable
+description: >
+  Detects a file hash (MD5) matching a known-malicious hash in the
+  threat intelligence feed. Indicates presence of known malware.
+author: Hari (open-source-siem-lab)
+date: 2026/05/31
+tags:
+  - attack.execution
+  - attack.t1204
+logsource:
+  product: wazuh
+  category: alert
+detection:
+  selection:
+    rule.id: '100022'
+  condition: selection
+fields:
+  - data.md5
+  - agent.name
+falsepositives:
+  - Hash collision (extremely rare)
+level: critical

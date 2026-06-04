@@ -1,0 +1,27 @@
+title: IOC Match - Known Malicious Domain
+id: ti-002
+status: stable
+description: >
+  Detects DNS resolution or HTTP request to a domain listed in the
+  malicious-domains threat feed. Indicates potential phishing, C2,
+  or malware dropper activity.
+author: Hari (open-source-siem-lab)
+date: 2026/05/31
+tags:
+  - attack.phishing
+  - attack.t1566
+  - attack.command_and_control
+  - attack.t1071
+logsource:
+  product: wazuh
+  category: alert
+detection:
+  selection:
+    rule.id: '100021'
+  condition: selection
+fields:
+  - data.domain
+  - srcip
+falsepositives:
+  - Incorrectly categorised legitimate domains in feed
+level: high

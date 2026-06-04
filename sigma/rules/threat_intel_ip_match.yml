@@ -1,0 +1,27 @@
+title: IOC Match - Known Malicious IP
+id: ti-001
+status: stable
+description: >
+  Detects a log event where the source IP matches a known-malicious IP
+  from threat intelligence feeds (Feodo Tracker, Abuse.ch).
+author: Hari (open-source-siem-lab)
+date: 2026/05/31
+tags:
+  - attack.command_and_control
+  - attack.t1071
+  - attack.valid_accounts
+  - attack.t1078
+logsource:
+  product: wazuh
+  category: alert
+detection:
+  selection:
+    rule.id: '100020'
+  condition: selection
+fields:
+  - srcip
+  - data.domain
+  - data.user
+falsepositives:
+  - VPN exit nodes incorrectly listed in feed
+level: critical
