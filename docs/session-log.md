@@ -282,3 +282,60 @@ Persistence, Initial Access, Execution, Discovery
 ### Next Session
 Session 9 — MISP Threat Intelligence
 
+
+## Session 9 — Threat Intelligence with Wazuh CDB Lists
+**Date:** 2026-05-31
+
+### What was built
+- Three Wazuh CDB lists: `malicious-ips`, `malicious-domains`, `malicious-hashes`
+- Three detection rules (100020-100022) using CDB lookup for IOC matching
+- Feed auto-update script pulling from Feodo Tracker (Abuse.ch)
+- Three Sigma rules (ti-001, ti-002, ti-003) with MITRE ATT&CK tags
+
+### Key learnings
+- Wazuh CDB source files must have no extension (not `.txt`)
+- Files must be owned by `wazuh:wazuh` or analysisd can't read them
+- Binary `.cdb` files generated using `tinycdb` with `cdb -c -m` flag
+- Live feeds use Windows line endings (`\r\n`) — must strip with `tr -d '\r'`
+- CDB rules must chain from a parent rule using `<if_sid>`, not standalone
+
+### MITRE coverage added
+- T1071 Command and Control
+- T1078 Valid Accounts (IOC context)
+- T1566 Phishing
+- T1204 User Execution
+
+---
+
+## Session 10 — Shuffle SOAR Automated Response
+**Date:** 2026-06-04
+
+### What was built
+- Docker and Docker Compose installed on EC2
+- Shuffle SOAR deployed via Docker Compose (4 containers)
+- Webhook trigger configured and activated
+- Wazuh integration block added to ossec.conf
+- End-to-end pipeline verified: Wazuh rule 100020 → integratord → Shuffle webhook → workflow execution
+
+### Key learnings
+- EC2 processes cannot reach themselves via public IP — must use `localhost`
+- Docker Compose v2 (`docker compose`) required for Docker Engine v29+
+- Shuffle's OpenSearch conflicts with Wazuh's on port 9200 — remapped to 9201
+- Orborus uses Docker swarm for worker execution on port 33333
+- Shuffle field mapping: `$exec.rule_id`, `$exec.all_fields.data.srcip`
+
+### Pipeline verified
+/var/log/entra-id/signin.log → Wazuh rule 100020 → integratord →
+Shuffle webhook → workflow FINISHED →
+"IOC ALERT RECEIVED - Rule: 100020 - Source IP: 162.243.103.246 - Agent: siem-lab"
+
+---
+
+## Session 12 — Portfolio Finalization
+**Date:** 2026-06-04
+
+### What was done
+- Removed sensitive files (certificates, keys, install scripts)
+- Updated `.gitignore` to block future sensitive file commits
+- Rewrote README.md with full architecture, detection coverage table, MITRE mapping
+- Verified clean repository structure
