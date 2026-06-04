@@ -1,11 +1,23 @@
+# Sensitive files - never commit
 *.pem
 *.key
-.env
-credentials
-aws-credentials
-*.secret
+*.crt
 wazuh-certificates/
-config.yml
 wazuh-certs-tool.sh
 wazuh-certificates-tool.log
+config.yml
+
+# Binary files
 *.cdb
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
